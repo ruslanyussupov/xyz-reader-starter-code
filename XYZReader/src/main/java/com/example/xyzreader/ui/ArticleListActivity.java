@@ -31,12 +31,13 @@ import butterknife.ButterKnife;
 public class ArticleListActivity extends AppCompatActivity implements
         LoaderManager.LoaderCallbacks<Cursor> {
 
-    @BindView(R.id.toolbar)
-    Toolbar mToolbar;
-    @BindView(R.id.swipe_refresh_layout)
-    SwipeRefreshLayout mSwipeRefreshLayout;
-    @BindView(R.id.recycler_view)
-    RecyclerView mRecyclerView;
+    private static final int LOADER_ID = 0;
+
+    private boolean mIsRefreshing = false;
+
+    @BindView(R.id.toolbar) Toolbar mToolbar;
+    @BindView(R.id.swipe_refresh_layout) SwipeRefreshLayout mSwipeRefreshLayout;
+    @BindView(R.id.recycler_view) RecyclerView mRecyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,11 +46,12 @@ public class ArticleListActivity extends AppCompatActivity implements
 
         ButterKnife.bind(this);
 
-        getSupportLoaderManager().initLoader(0, null, this);
-
         if (savedInstanceState == null) {
             refresh();
         }
+
+        getSupportLoaderManager().initLoader(LOADER_ID, null, this);
+
     }
 
     private void refresh() {
@@ -69,7 +71,6 @@ public class ArticleListActivity extends AppCompatActivity implements
         unregisterReceiver(mRefreshingReceiver);
     }
 
-    private boolean mIsRefreshing = false;
 
     private BroadcastReceiver mRefreshingReceiver = new BroadcastReceiver() {
         @Override
