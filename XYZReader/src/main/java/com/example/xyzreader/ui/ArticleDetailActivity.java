@@ -4,8 +4,11 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.constraint.Group;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.app.ShareCompat;
 import android.support.v4.content.Loader;
@@ -16,6 +19,7 @@ import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -32,7 +36,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * An activity representing a single Article detail screen, letting you swipe between articles.
+ * An activity representing a single Article detail screen.
  */
 public class ArticleDetailActivity extends AppCompatActivity
         implements LoaderManager.LoaderCallbacks<Cursor> {
@@ -49,12 +53,15 @@ public class ArticleDetailActivity extends AppCompatActivity
     // Most time functions can only handle 1902 - 2037
     private GregorianCalendar START_OF_EPOCH = new GregorianCalendar(2,1,1);
 
+    @BindView(R.id.coordinator_layout)CoordinatorLayout mCoordinatorLayout;
     @BindView(R.id.article_byline)TextView mBylineView;
     @BindView(R.id.article_body)TextView mBodyView;
     @BindView(R.id.toolbar)Toolbar mToolbar;
     @BindView(R.id.toolbar_layout)CollapsingToolbarLayout mToolbarLayout;
     @BindView(R.id.share_fab)FloatingActionButton mShareFab;
     @BindView(R.id.photo)ImageView mPhotoView;
+    @BindView(R.id.progress_bar)ProgressBar mProgressBar;
+    @BindView(R.id.content)Group mContentGroup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +85,9 @@ public class ArticleDetailActivity extends AppCompatActivity
 
         if (savedInstanceState == null) {
             if (getIntent() != null && getIntent().getData() != null) {
+                Log.d(TAG, "URL: " + getIntent().getData());
                 mArticleId = ItemsContract.Items.getItemId(getIntent().getData());
+                Log.d(TAG, "Article ID: " + mArticleId);
             }
         }
         else {
@@ -98,13 +107,17 @@ public class ArticleDetailActivity extends AppCompatActivity
     @NonNull
     @Override
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
+        showProgressBar();
         return ArticleLoader.newInstanceForItemId(this, mArticleId);
     }
 
     @Override
     public void onLoadFinished(@NonNull Loader<Cursor> cursorLoader, Cursor cursor) {
 
+        hideProgressBar();
+
         mCursor = cursor;
+
         if (mCursor != null && !mCursor.moveToFirst()) {
             Log.e(TAG, "Error reading item detail cursor");
             mCursor.close();
@@ -117,6 +130,7 @@ public class ArticleDetailActivity extends AppCompatActivity
 
     @Override
     public void onLoaderReset(@NonNull Loader<Cursor> cursorLoader) {
+        hideProgressBar();
         mCursor = null;
     }
 
@@ -153,10 +167,10 @@ public class ArticleDetailActivity extends AppCompatActivity
                     .load(mCursor.getString(ArticleLoader.Query.PHOTO_URL))
                     .into(mPhotoView);
 
+            mCursor.close();
 
         } else {
-            mBylineView.setText("N/A" );
-            mBodyView.setText("N/A");
+            showEmptyState();
         }
     }
 
@@ -169,6 +183,23 @@ public class ArticleDetailActivity extends AppCompatActivity
             Log.i(TAG, "passing today's date");
             return new Date();
         }
+    }
+
+    private void showProgressBar() {
+        mContentGroup.setVisibility(View.GONE);
+        mProgressBar.setVisibility(View.VISIBLE);
+    }
+
+    private void hideProgressBar() {
+        mProgressBar.setVisibility(View.GONE);
+        mContentGroup.setVisibility(View.VISIBLE);
+    }
+
+    private void showEmptyState() {
+        mBylineView.setText("N/A" );
+        mBodyView.setText("N/A");
+        Snackbar.make(mCoordinatorLayout, getString(R.string.empty_article), Snackbar.LENGTH_LONG)
+        .show();
     }
 
 }

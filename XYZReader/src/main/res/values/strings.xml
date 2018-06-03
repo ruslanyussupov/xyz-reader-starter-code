@@ -9,4 +9,8 @@
 
     <string name="up">Up</string>
 
+    <string name="no_internet_state">No Internet connection…</string>
+    <string name="no_articles_state">No articles…</string>
+    <string name="empty_article">The article is empty…</string>
+
 </resources>

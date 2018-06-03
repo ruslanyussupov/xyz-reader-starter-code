@@ -52,10 +52,21 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        Context context = parent.getContext();
+        final Context context = parent.getContext();
         View view = LayoutInflater.from(context)
                 .inflate(R.layout.list_item_article, parent, false);
-        return new ViewHolder(view);
+
+        final ViewHolder viewHolder = new ViewHolder(view);
+
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                context.startActivity(new Intent(Intent.ACTION_VIEW,
+                        ItemsContract.Items.buildItemUri(getItemId(viewHolder.getAdapterPosition()))));
+            }
+        });
+
+        return viewHolder;
     }
 
     private Date parsePublishedDate() {
@@ -111,15 +122,6 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
         ViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
-
-            final Context context = view.getContext();
-            view.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    context.startActivity(new Intent(Intent.ACTION_VIEW,
-                            ItemsContract.Items.buildItemUri(getAdapterPosition())));
-                }
-            });
 
         }
     }
