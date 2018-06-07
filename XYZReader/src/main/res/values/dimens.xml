@@ -1,11 +1,30 @@
 <resources>
-    <!-- detail -->
-    <dimen name="detail_title_text_size">32sp</dimen>
-    <dimen name="detail_body_text_size">22sp</dimen>
-    <item name="detail_body_line_spacing_multiplier" format="float" type="fraction">1.25</item>
 
-    <dimen name="fab_elevation">2dp</dimen>
-    <dimen name="fab_press_translation_z">6dp</dimen>
-    <dimen name="fab_margin">24dp</dimen>
+    <dimen name="fab_elevation">6dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="items_gap">8dp</dimen>
+    <dimen name="rv_margin">8dp</dimen>
+    <dimen name="toolbar_elevation">4dp</dimen>
+    <dimen name="card_corner_radius">4dp</dimen>
+
+    <dimen name="detail_card_margin">16dp</dimen>
+    <dimen name="detail_app_bar_height">256dp</dimen>
+    <dimen name="detail_expanded_title_margin_start">48dp</dimen>
+    <dimen name="detail_expanded_title_margin_end">64dp</dimen>
+    <dimen name="detail_frame_layout_padding_top">24dp</dimen>
+    <dimen name="detail_article_body_margin_top">16dp</dimen>
+    <dimen name="detail_article_byline_margin_top">16dp</dimen>
+    <dimen name="detail_article_byline_margin_end">16dp</dimen>
+    <dimen name="detail_article_body_padding">16dp</dimen>
+
+    <dimen name="item_article_title_margin_top">16dp</dimen>
+    <dimen name="item_article_title_margin_start">16dp</dimen>
+    <dimen name="item_article_title_margin_end">16dp</dimen>
+    <dimen name="item_article_subtitle_margin">16dp</dimen>
+
+    <dimen name="logo_padding_top">8dp</dimen>
+    <dimen name="logo_padding_bottom">8dp</dimen>
+
+    <dimen name="card_elevation">2dp</dimen>
 
 </resources>

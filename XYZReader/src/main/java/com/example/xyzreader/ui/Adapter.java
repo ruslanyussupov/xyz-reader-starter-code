@@ -3,7 +3,12 @@ package com.example.xyzreader.ui;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v7.graphics.Palette;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.text.format.DateUtils;
@@ -15,6 +20,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.example.xyzreader.R;
 import com.example.xyzreader.data.ArticleLoader;
 import com.example.xyzreader.data.ItemsContract;
@@ -81,7 +90,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
 
         Context context = holder.itemView.getContext();
 
@@ -104,7 +113,33 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
                             + mCursor.getString(ArticleLoader.Query.AUTHOR)));
         }
 
-        Glide.with(context).load(mCursor.getString(ArticleLoader.Query.THUMB_URL))
+        Glide.with(context)
+                .asBitmap()
+                .load(mCursor.getString(ArticleLoader.Query.THUMB_URL))
+                .listener(new RequestListener<Bitmap>() {
+                    @Override
+                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Bitmap> target, boolean isFirstResource) {
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onResourceReady(Bitmap resource, Object model, Target<Bitmap> target, DataSource dataSource, boolean isFirstResource) {
+                        Palette.from(resource).generate(new Palette.PaletteAsyncListener() {
+                            @Override
+                            public void onGenerated(@NonNull Palette palette) {
+                                Palette.Swatch vibrantSwatch = palette.getDarkMutedSwatch();
+
+                                if (vibrantSwatch != null) {
+                                    holder.mCardView.setBackgroundColor(vibrantSwatch.getRgb());
+                                    holder.mTitleView.setTextColor(vibrantSwatch.getTitleTextColor());
+                                    holder.mSubtitleView.setTextColor(vibrantSwatch.getBodyTextColor());
+                                }
+
+                            }
+                        });
+                        return false;
+                    }
+                })
                 .into(holder.mThumbnailView);
 
     }
@@ -118,6 +153,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
         @BindView(R.id.thumbnail)ImageView mThumbnailView;
         @BindView(R.id.article_title)TextView mTitleView;
         @BindView(R.id.article_subtitle)TextView mSubtitleView;
+        @BindView(R.id.card_view)CardView mCardView;
 
         ViewHolder(View view) {
             super(view);

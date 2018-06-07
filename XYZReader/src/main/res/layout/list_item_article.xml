@@ -1,15 +1,16 @@
 <android.support.v7.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/card_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginLeft="4dp"
-    android:layout_marginRight="4dp"
-    android:layout_marginTop="4dp"
-    android:layout_marginBottom="4dp"
+    android:layout_margin="@dimen/items_gap"
     android:clickable="true"
     android:focusable="true"
-    android:foreground="?android:attr/selectableItemBackground">
+    android:foreground="?android:attr/selectableItemBackground"
+    app:cardCornerRadius="@dimen/card_corner_radius"
+    app:cardElevation="@dimen/card_elevation">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -25,28 +26,25 @@
 
         <TextView
             android:id="@+id/article_title"
-            style="@style/TextAppearance.AppCompat.Subhead"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="16dp"
-            android:paddingTop="16dp"
-            android:paddingRight="16dp"
-            android:paddingBottom="4dp"
-            android:textColor="@color/ltgray"
+            android:textAppearance="@style/TextAppearance.AppCompat.Title"
             android:ellipsize="end"
-            android:maxLines="4" />
+            android:maxLines="@string/item_article_max_lines"
+            android:layout_marginTop="@dimen/item_article_title_margin_top"
+            android:layout_marginStart="@dimen/item_article_title_margin_start"
+            android:layout_marginEnd="@dimen/item_article_title_margin_end"
+            tools:text="Title"/>
 
         <TextView
             android:id="@+id/article_subtitle"
-            style="@style/TextAppearance.AppCompat.Body1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
-            android:paddingBottom="16dp"
-            android:textColor="#6000"
-            android:maxLines="2"
-            android:ellipsize="end" />
+            android:layout_margin="@dimen/item_article_subtitle_margin"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:maxLines="@string/item_article_subtitle_max_lines"
+            android:ellipsize="end"
+            tools:text="Description"/>
     </LinearLayout>
 
 </android.support.v7.widget.CardView>

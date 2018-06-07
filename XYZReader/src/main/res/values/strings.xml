@@ -13,4 +13,7 @@
     <string name="no_articles_state">No articles…</string>
     <string name="empty_article">The article is empty…</string>
 
+    <string name="item_article_max_lines">4</string>
+    <string name="item_article_subtitle_max_lines">2</string>
+
 </resources>
