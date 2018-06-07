@@ -87,9 +87,7 @@ public class ArticleDetailActivity extends AppCompatActivity
 
         if (savedInstanceState == null) {
             if (getIntent() != null && getIntent().getData() != null) {
-                Log.d(TAG, "URL: " + getIntent().getData());
                 mArticleId = ItemsContract.Items.getItemId(getIntent().getData());
-                Log.d(TAG, "Article ID: " + mArticleId);
             }
         }
         else {
@@ -97,12 +95,6 @@ public class ArticleDetailActivity extends AppCompatActivity
         }
 
         getSupportLoaderManager().initLoader(0, null, this);
-
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
 
     }
 

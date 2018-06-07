@@ -38,8 +38,6 @@
                         android:id="@+id/article_byline"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="@dimen/detail_article_byline_margin_end"
-                        android:layout_marginTop="@dimen/detail_article_byline_margin_top"
                         android:gravity="end"
                         android:textAppearance="@style/TextAppearance.AppCompat.Caption"
                         tools:text="Article Bylines"/>
@@ -48,7 +46,6 @@
                         android:id="@+id/article_body"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="@dimen/detail_article_body_padding"
                         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                         android:layout_marginTop="@dimen/detail_article_body_margin_top"
                         android:autoLink="all"

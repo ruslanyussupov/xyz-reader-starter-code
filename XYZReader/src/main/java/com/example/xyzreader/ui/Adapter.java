@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.graphics.Palette;
@@ -130,7 +129,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
                                 Palette.Swatch vibrantSwatch = palette.getDarkMutedSwatch();
 
                                 if (vibrantSwatch != null) {
-                                    holder.mCardView.setBackgroundColor(vibrantSwatch.getRgb());
+                                    holder.mCardView.setCardBackgroundColor(vibrantSwatch.getRgb());
                                     holder.mTitleView.setTextColor(vibrantSwatch.getTitleTextColor());
                                     holder.mSubtitleView.setTextColor(vibrantSwatch.getBodyTextColor());
                                 }

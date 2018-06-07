@@ -6,4 +6,9 @@
     <dimen name="detail_app_bar_height">384dp</dimen>
     <dimen name="detail_content_width">600dp</dimen>
 
+    <dimen name="detail_card_content_padding_left">24dp</dimen>
+    <dimen name="detail_card_content_padding_right">24dp</dimen>
+    <dimen name="detail_card_content_padding_top">36dp</dimen>
+    <dimen name="detail_card_content_padding_bottom">36dp</dimen>
+
 </resources>
