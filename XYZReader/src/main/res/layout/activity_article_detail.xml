@@ -49,7 +49,6 @@
                         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                         android:layout_marginTop="@dimen/detail_article_body_margin_top"
                         android:autoLink="all"
-                        android:textColorLink="@color/colorAccent"
                         tools:text="Some text"/>
 
                 </LinearLayout>

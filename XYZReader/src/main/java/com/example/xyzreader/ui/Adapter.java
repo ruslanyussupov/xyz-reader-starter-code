@@ -95,6 +95,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
         mCursor.moveToPosition(position);
         holder.mTitleView.setText(mCursor.getString(ArticleLoader.Query.TITLE));
+        holder.mThumbnailView.setAspectRatio(mCursor.getFloat(ArticleLoader.Query.ASPECT_RATIO));
         Date publishedDate = parsePublishedDate();
         if (!publishedDate.before(START_OF_EPOCH.getTime())) {
 
@@ -149,7 +150,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.thumbnail)ImageView mThumbnailView;
+        @BindView(R.id.thumbnail)DynamicHeightNetworkImageView mThumbnailView;
         @BindView(R.id.article_title)TextView mTitleView;
         @BindView(R.id.article_subtitle)TextView mSubtitleView;
         @BindView(R.id.card_view)CardView mCardView;
